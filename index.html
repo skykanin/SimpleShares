@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+	<style media="screen">
+		html {
+			-webkit-app-region: "drag";
+		}
+		body {
+			background: black;
+			color: white;
+		}
+	</style>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+	<h2>Current Share Price GOOG <span id="price"></span></h2>
+	<script type="text/javascript">
+		console.log("Node", process.version.node);
+		console.log("Chrome", process.version.chrome);
+		console.log("Electron", process.version.electron);
+	</script>
+	<script>
+		var request = require('request');
+		request("https://www.google.com/finance/info?client=ig&q=goog", function(error, response, body) {
+			body = body.slice(3);
+			body = JSON.parse(body);
+			console.log(body);
+			newPrice(body);
+		});
+		function newPrice(arr) {
+			currentPrice = arr[0]["l"];
+			document.getElementById("price").innerHTML = currentPrice;
+		}
+	</script>
+  </body>
+</html>
