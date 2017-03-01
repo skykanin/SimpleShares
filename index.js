@@ -1,12 +1,12 @@
 var request = require('request');
-var stockList = ["goog", "aapl", "ssnlf", "test0", "test1", "test2"];
+var stockList = ["goog", "aapl", "amzn", "test0", "test1", "test2"];
 
 function getInfo(stock){
 	var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
 	console.log(url);
 	request(url, function(error, response, body) {
-		console.log('error:', error); // Print the error if one occurred
-		console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+		//console.log('error:', error); // Print the error if one occurred
+		//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 		if(!error && response.statusCode === 200) {
 			body = body.slice(3);
 			body = JSON.parse(body);
@@ -16,20 +16,50 @@ function getInfo(stock){
 	});
 
 	function draw(arr, stock){
-		currentPrice = arr[0]["l"];
-		var caption = document.createElement("caption");
+		var infoNames = ["Ticker", "Listing Price", "Exchange", "Growth"];
+		var info = [arr[0]["t"], arr[0]["l"], arr[0]["e"], arr[0]["c"]];
 		var text = document.createTextNode(stock.toUpperCase());
 		var span = document.createElement("span");
-		var value = document.createTextNode(currentPrice + "$");
+		var value = document.createTextNode(info[1] + "$");
 		var div = document.createElement("div");
 		var stockDiv = document.getElementsByClassName("stocks")[stockList.indexOf(stock)];
 		stockDiv.appendChild(div);
 		span.appendChild(value);
 		div.appendChild(span);
-		div.style.height = (currentPrice/5).toString() + "px";
+		div.style.height = (info[1]/4).toString() + "px";
 		div.className = "bar";
+
+		var table = stockDiv.firstChild;
+
+		//Creates all table rows and appends them to table
+		for (var x = 0; x < info.length; x++) {
+			var tr = document.createElement("tr");
+			table.appendChild(tr);
+		}
+		//Creats all table data and appends them to table rows
+		for (var i = 0; i < info.length; i++) {
+			var tr = table.children[i];
+			var td0 = document.createElement("td");
+			var text0 = document.createTextNode(infoNames[i]);
+			var td1 = document.createElement("td");
+			var text1 = document.createTextNode(info[i]);
+
+			td0.appendChild(text0);
+			tr.appendChild(td0);
+			td1.appendChild(text1);
+			tr.appendChild(td1);
+		}
+
+		var td = table.children[3].lastChild;
+		console.log(td);
+
+		if (td.innerHTML.charAt(0) === "+") {
+			td.style.color = "#00FF00";
+		} else {
+			td.style.color = "#DD0048";
 		}
 	}
+}
 
 
 /*for(var i = 0; i < stockList.length; i++){
@@ -38,3 +68,4 @@ function getInfo(stock){
 
 getInfo(stockList[0]);
 getInfo(stockList[1]);
+getInfo(stockList[2]);

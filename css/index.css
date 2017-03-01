@@ -31,23 +31,34 @@ body {
 	left: 0;
 	width: 50%;
 	height: 100%;
-	background-color: lightgreen;
+	background-color: grey;
 	position: relative;
+	padding: 15px;
+}
+.info > table, tr, td {
+
+	border-collapse: collapse;
+}
+td {
+	width: 100px;
+	height: 30px;
+	text-align: left;
+	vertical-align: middle;
 }
 .bar {
-	bottom: 175px;
-	left: 25%;
-	width: 150px;
+	bottom: 237px;
+	left: 27.5%;
+	width: 100px;
 	background-color: red;
 	position: relative;
 	display: inline-block;
-	vertical-align: -10em;
-	border-radius: 10px;
+	vertical-align: -12em;
+	border-radius: 5px;
 }
 
 .bar > span {
 	position: absolute;
 	top: 20%;
-	left: 30%;
+	left: 25%;
 	vertical-align: middle;
 }
