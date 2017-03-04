@@ -1,5 +1,5 @@
 var request = require('request');
-var stockList = ["goog", "aapl", "amzn", "test0", "test1", "test2"];
+var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
 
 function getInfo(stock){
 	var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
@@ -62,10 +62,6 @@ function getInfo(stock){
 }
 
 
-/*for(var i = 0; i < stockList.length; i++){
+for(var i = 0; i < stockList.length; i++){
 	getInfo(stockList[i]);
-}*/
-
-getInfo(stockList[0]);
-getInfo(stockList[1]);
-getInfo(stockList[2]);
+}
