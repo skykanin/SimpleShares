@@ -1,5 +1,6 @@
 var request = require('request');
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
+var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."]
 
 function getInfo(stock){
 	var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
@@ -57,6 +58,17 @@ function getInfo(stock){
 			td.style.color = "#00FF00";
 		} else {
 			td.style.color = "#DD0048";
+		}
+
+		//Name all the stocks
+		var head = document.getElementsByClassName("head");
+		for (var y = 0; y < stockNames.length; y++) {
+			var node = document.createTextNode(stockNames[y]);
+			var h1 = document.createElement("h1");
+			if(!head[y].hasChildNodes()){
+				head[y].appendChild(h1);
+				h1.appendChild(node);
+			}
 		}
 	}
 }

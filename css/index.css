@@ -9,6 +9,8 @@ body {
 	margin: 0;
 	background: #424242;
 	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font
 }
 
 .stocks {
@@ -27,8 +29,7 @@ body {
 	background-color: #616161;
 }
 .info {
-	bottom: 0;
-	top: 50%;
+	top: 170px;
 	left: 0;
 	width: 50%;
 	height: 50%;
@@ -46,13 +47,13 @@ td {
 	vertical-align: middle;
 }
 .bar {
-	bottom: 37px;
+	bottom: 255px;
 	left: 27.5%;
 	width: 80px;
 	background-color: red;
 	position: relative;
 	display: inline-block;
-	vertical-align: -12.1em;
+	vertical-align: -13.0em;
 	border-radius: 5px;
 }
 
@@ -61,4 +62,12 @@ td {
 	top: 20%;
 	left: 20%;
 	vertical-align: middle;
+}
+.head {
+	padding: 15px;
+	text-align: left;
+	height: 170px;
+	width: 400px;
+	position: relative;
+	top: -230px;
 }
