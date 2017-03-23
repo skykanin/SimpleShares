@@ -60,7 +60,7 @@ function getInfo(stock){
 			td.style.color = "#DD0048";
 		}
 
-		//Name all the stocks
+		//Adds names to all the stocks
 		var head = document.getElementsByClassName("head");
 		for (var y = 0; y < stockNames.length; y++) {
 			var node = document.createTextNode(stockNames[y]);
@@ -73,7 +73,7 @@ function getInfo(stock){
 	}
 }
 
-
+//Runs the function for displaying the front page
 for(var i = 0; i < stockList.length; i++){
 	getInfo(stockList[i]);
 }
