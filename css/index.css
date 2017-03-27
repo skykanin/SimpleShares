@@ -55,7 +55,24 @@ td {
 	display: inline-block;
 	vertical-align: -13.0em;
 	border-radius: 5px;
+	height: 0;
+
+	-webkit-transition: all 10s ease;
+	-moz-transition: all 10s ease;
+	-o-transition: all 10s ease;
+	transition: all 20s ease;
+
+	/*animation: mymove 10s ease;*/
 }
+
+/*@keyframes mymove {
+	0% {
+		height: 0;
+	}
+	100% {
+		height: 100%;
+	}
+}*/
 
 .bar > span {
 	position: absolute;
