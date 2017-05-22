@@ -29,9 +29,9 @@ body {
 	background-color: #616161;
 }
 .info {
-	top: 170px;
-	left: 0;
-	width: 50%;
+	left: calc(50% - 215px);
+	bottom: calc(50% - 115px);
+	width: 100%;
 	height: 50%;
 	position: relative;
 	padding: 15px;
@@ -41,50 +41,17 @@ body {
 	border-collapse: collapse;
 }
 td {
-	width: 100px;
-	height: 30px;
-	text-align: left;
+	width: 200px;
+	height: 40px;
+	text-align: middle;
 	vertical-align: middle;
 }
-.bar {
-	bottom: 255px;
-	left: 27.5%;
-	width: 80px;
-	background-color: red;
-	position: relative;
-	display: inline-block;
-	vertical-align: -13.0em;
-	border-radius: 5px;
-	height: 0;
 
-	-webkit-transition: all 10s ease;
-	-moz-transition: all 10s ease;
-	-o-transition: all 10s ease;
-	transition: all 20s ease;
-
-	/*animation: mymove 10s ease;*/
-}
-
-/*@keyframes mymove {
-	0% {
-		height: 0;
-	}
-	100% {
-		height: 100%;
-	}
-}*/
-
-.bar > span {
-	position: absolute;
-	top: 20%;
-	left: 20%;
-	vertical-align: middle;
-}
 .head {
 	padding: 15px;
 	text-align: left;
 	height: 170px;
 	width: 400px;
 	position: relative;
-	top: -230px;
+	top: 0px;
 }

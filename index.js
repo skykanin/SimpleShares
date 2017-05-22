@@ -11,7 +11,7 @@ function getInfo(stock){
 		if(!error && response.statusCode === 200) {
 			body = body.slice(3);
 			body = JSON.parse(body);
-			console.log(body);
+			//console.log(body);
 			draw(body, stock);
 		}
 	});
@@ -20,22 +20,14 @@ function getInfo(stock){
 		var infoNames = ["Ticker", "Listing Price", "Exchange", "Growth"];
 		var info = [arr[0]["t"], arr[0]["l"], arr[0]["e"], arr[0]["c"]];
 		var text = document.createTextNode(stock.toUpperCase());
-		var span = document.createElement("span");
-		var value = document.createTextNode(info[1] + "$");
-		var div = document.createElement("div");
 		var stockDiv = document.getElementsByClassName("stocks")[stockList.indexOf(stock)];
-		stockDiv.appendChild(div);
-		span.appendChild(value);
-		div.appendChild(span);
-		div.style.height = (info[1]/4).toString() + "px";
-		div.className = "bar";
 
-		var table = stockDiv.firstChild;
-
+		var table = stockDiv.children[1].firstChild;
+		//console.log("Table " + table);
 		//Creates all table rows and appends them to table
 		for (var x = 0; x < info.length; x++) {
 			var tr = document.createElement("tr");
-			table.appendChild(tr);
+			table.insertBefore(tr, table.children[i]);
 		}
 		//Creats all table data and appends them to table rows
 		for (var i = 0; i < info.length; i++) {
@@ -52,7 +44,7 @@ function getInfo(stock){
 		}
 
 		var td = table.children[3].lastChild;
-		console.log(td);
+		//console.log(td);
 
 		if (td.innerHTML.charAt(0) === "+") {
 			td.style.color = "#00FF00";
