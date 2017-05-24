@@ -23,6 +23,8 @@ body {
 	border-radius: 20px;
 	margin-left: 1em;
 	margin-top: 1em;
+	perspective: 400px;
+	-webkit-perspective: 400px;
 }
 
 .stocks:hover {
@@ -30,7 +32,7 @@ body {
 }
 .info {
 	left: calc(50% - 215px);
-	bottom: calc(50% - 115px);
+	bottom: calc(50% - 287.5px);
 	width: 100%;
 	height: 50%;
 	position: relative;
@@ -54,4 +56,45 @@ td {
 	width: 400px;
 	position: relative;
 	top: 0px;
+}
+
+.stocks, .front, .back {
+	width: 400px;
+	height: 400px;
+}
+
+/* flip the pane when hovered
+	.stocks:hover .flipper, .stocks.hover .flipper {
+		transform: rotateY(-180deg);
+	}*/
+
+/* flip speed goes here */
+.flipper {
+	transition: 1s;
+	-webkit-transition: 1s;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	position: relative;
+}
+
+.front, .back {
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+	-webkit-transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
 }
