@@ -2,7 +2,7 @@ var request = require('request');
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
 var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."]
 
-function getInfo(stock){
+function getStockNumbers(stock){
 	var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
 	//console.log(url);
 	request(url, function(error, response, body) {
@@ -17,9 +17,30 @@ function getInfo(stock){
 	});
 }
 
-function drawTable(arr, stock){
+function getStockData(timeInterval, stock){
+	if(timeInterval == "weekly"){
+		var url = "http://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol="+stock+"&apikey=EL0R";
+	} else if(timeInterval == "monthly"){
+		var url = "http://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol="+stock+"&apikey=EL0R";
+	} else if (timeInterval == "daily"){
+		var url = "http://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+stock+"&apikey=EL0R";
+	} else {
+		console.log("IlligalArgumentException");
+	}
+	request(url, function(error, response, body) {
+		//console.log('error:', error); // Print the error if one occurred
+		//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+		if(!error && response.statusCode === 200) {
+			body = JSON.parse(body);
+			//console.log(body);
+			drawGraph(body, stock);
+		}
+	});
+}
+
+function drawTable(array, stock){
 	var infoNames = ["Ticker", "Listing Price", "Exchange", "Growth"];
-	var info = [arr[0]["t"], arr[0]["l"], arr[0]["e"], arr[0]["c"]];
+	var info = [array[0]["t"], array[0]["l"], array[0]["e"], array[0]["c"]];
 	var text = document.createTextNode(stock.toUpperCase());
 	var stockDiv = document.getElementsByClassName("stocks")[stockList.indexOf(stock)];
 
@@ -54,8 +75,11 @@ function drawTable(arr, stock){
 	}
 }
 
-function drawGraph(){
-	//TODO: this
+function drawGraph(obj, stock){
+	var graphDivs = document.getElementsByClassName("graphs");
+	var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[0]]["4. close"];
+	console.log(key);
+
 }
 
 function setupClickHandlers(){
@@ -108,7 +132,8 @@ function namer(){
 
 //Runs the functions for displaying the front page
 for(var i = 0; i < stockList.length; i++){
-	getInfo(stockList[i]);
+	getStockNumbers(stockList[i]);
+	getStockData("monthly", stockList[i]);
 }
 namer();
 setupClickHandlers();
