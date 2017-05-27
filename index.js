@@ -1,4 +1,5 @@
-var request = require('request');
+const request = require('request');
+const generate = require('chartist');
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
 var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."]
 
@@ -77,8 +78,25 @@ function drawTable(array, stock){
 
 function drawGraph(obj, stock){
 	var graphDivs = document.getElementsByClassName("graphs");
-	var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[0]]["4. close"];
-	console.log(key);
+	var keys = Object.keys(obj["Monthly Time Series"]);
+	for (var i = 0; i < graphDivs.length; i++) {
+
+		for (var i = 0; i < 6; i++) {
+
+		}
+		var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
+		var key = keys[i];
+
+		var data = {
+		  labels: ['A', 'B', 'C'],
+		  series: [[
+		    {x: undefined, y: 10},
+		    {x: undefined, y: 8},
+		    {x: undefined, y: 14}
+	  		]]
+		};
+		new generate.Line(graphDivs[i] ,data);
+	}
 
 }
 
