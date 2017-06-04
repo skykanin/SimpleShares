@@ -1,7 +1,7 @@
 const request = require('request');
-const generate = require('chartist');
+const chart = require('chartist');
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
-var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."]
+var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."];
 
 function getStockNumbers(stock){
 	var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
@@ -79,26 +79,22 @@ function drawTable(array, stock){
 function drawGraph(obj, stock){
 	var graphDivs = document.getElementsByClassName("graphs");
 	var keys = Object.keys(obj["Monthly Time Series"]);
-	for (var i = 0; i < graphDivs.length; i++) {
+	var data = {labels: [], series: [[]]};
+	var options = {showPoint: false, lineSmooth: false, axisY: {
+    labelInterpolationFnc: function(value) {
+      return '$' + value;
+  }}};
 
-		for (var i = 0; i < 6; i++) {
+		for (var i = 0; i < 7; i++) {
+			var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
+			var key = keys[i];
 
+			data.labels.unshift(key.slice(5));
+			data.series[0].unshift(parseInt(info));
 		}
-		var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
-		var key = keys[i];
 
-		var data = {
-		  labels: ['A', 'B', 'C'],
-		  series: [[
-		    {x: undefined, y: 10},
-		    {x: undefined, y: 8},
-		    {x: undefined, y: 14}
-	  		]]
-		};
-		new generate.Line(graphDivs[i] ,data);
+		new chart.Line(graphDivs[stockList.indexOf(stock)], data, options);
 	}
-
-}
 
 function setupClickHandlers(){
     var stocks = document.getElementsByClassName("stocks");
