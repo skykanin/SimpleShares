@@ -67,30 +67,32 @@ function drawTable(array, stock){
 	}
 
 	var td = table.children[3].lastChild;
-	//console.log(td);
+	td.style.fontWeight = "bolder";
+	//console.log(td.innerHTML);
 
 	if (td.innerHTML.charAt(0) === "+") {
 		td.style.color = "#00FF00";
 	} else {
-		td.style.color = "#DD0048";
+		td.style.color = "#FF0000";
 	}
+
 }
 
 function drawGraph(obj, stock){
 	var graphDivs = document.getElementsByClassName("graphs");
 	var keys = Object.keys(obj["Monthly Time Series"]);
-	var data = {labels: [], series: [[]]};
-	var options = {showPoint: false, lineSmooth: false, axisY: {
+	var data = {labels: [], series: [{name: 'series1', data: []}]};
+	var options = {showPoint: false, lineSmooth: false, series: {'series1': {showArea: true}}, axisY: {
     labelInterpolationFnc: function(value) {
       return '$' + value;
-  }}};
+  }, showGrid: true}, axisX: {showGrid: false}};
 
 		for (var i = 0; i < 7; i++) {
 			var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
 			var key = keys[i];
 
-			data.labels.unshift(key.slice(5));
-			data.series[0].unshift(parseInt(info));
+			data.labels.unshift(key.slice(5,10));
+			data.series[0]['data'].unshift(parseInt(info));
 		}
 
 		new chart.Line(graphDivs[stockList.indexOf(stock)], data, options);
