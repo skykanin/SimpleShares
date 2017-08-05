@@ -24,6 +24,52 @@ body {
     margin: 0 auto;
 }
 
+#navbar {
+    background: linear-gradient(#323232, #424242);
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #323232;
+}
+
+#minimize {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    background-color: transparent;
+    left: calc(100% - 120px);
+    top: 7.5px;
+}
+
+#maximize {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    background-color: transparent;
+    left: calc(100% - 80px);
+    top: 7.5px;
+}
+
+#close {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    background-color: transparent;
+    left: calc(100% - 40px);
+    top: 7.5px;
+}
+
+#minimize>*:hover,
+#maximize>*:hover,
+#close>*:hover {
+    background-color: blueviolet;
+}
+
 .stocks {
     overflow: hidden;
     text-align: center;
@@ -31,7 +77,7 @@ body {
     display: inline-block;
     width: 400px;
     height: 400px;
-    margin: 15px;
+    margin: 1em;
     border-radius: 20px;
     perspective: 400px;
     -webkit-perspective: 400px;
