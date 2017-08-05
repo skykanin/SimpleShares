@@ -105,7 +105,7 @@ function drawGraph(obj, stock) {
     var options = {
         showPoint: false,
         lineSmooth: false,
-        series: { 'series1': { showArea: true } },
+        series: { 'series1': { showArea: false } },
         axisY: {
             labelInterpolationFnc: function(value) {
                 return '$' + value;

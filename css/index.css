@@ -73,7 +73,7 @@ body {
 .stocks {
     overflow: hidden;
     text-align: center;
-    background-color: grey;
+    background-color: #626262;
     display: inline-block;
     width: 400px;
     height: 400px;
@@ -161,6 +161,15 @@ td {
 .back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
+}
+
+.ct-line {
+    stroke: #39FF14 !important;
+    stroke-width: 3px !important;
+}
+
+.ct-area {
+    fill: #39FF14 !important;
 }
 
 .ct-grid {
