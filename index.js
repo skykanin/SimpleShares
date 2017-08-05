@@ -1,7 +1,27 @@
 const request = require('request');
 const chart = require('chartist');
+const remote = require('electron').remote;
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
 var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."];
+
+document.getElementById("minimize").addEventListener("click", function(e) {
+    var window = remote.getCurrentWindow();
+    window.minimize();
+});
+
+document.getElementById("maximize").addEventListener("click", function(e) {
+    var window = remote.getCurrentWindow();
+    if (!window.isMaximized()) {
+        window.maximize();
+    } else {
+        window.unmaximize();
+    }
+});
+
+document.getElementById("close").addEventListener("click", function(e) {
+    var window = remote.getCurrentWindow();
+    window.close();
+});
 
 function getStockNumbers(stock) {
     var url = "https://www.google.com/finance/info?client=ig&q=" + stock;
