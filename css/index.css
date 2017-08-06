@@ -10,7 +10,6 @@ body {
 }
 
 body {
-    -webkit-app-region: drag;
     background: #424242;
     color: white;
     font-family: 'Open Sans', sans-serif;
@@ -25,6 +24,7 @@ body {
 }
 
 #navbar {
+    -webkit-app-region: drag;
     background: linear-gradient(#323232, #424242);
     width: 100%;
     height: 50px;
