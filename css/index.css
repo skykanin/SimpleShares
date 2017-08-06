@@ -13,7 +13,6 @@ body {
     background: #424242;
     color: white;
     font-family: 'Open Sans', sans-serif;
-    overflow: hidden;
 }
 
 #wrapper {
@@ -32,6 +31,7 @@ body {
 }
 
 #minimize {
+    -webkit-app-region: no-drag;
     width: 25px;
     height: 25px;
     padding: 5px;
@@ -43,6 +43,7 @@ body {
 }
 
 #maximize {
+    -webkit-app-region: no-drag;
     width: 25px;
     height: 25px;
     padding: 5px;
@@ -54,6 +55,7 @@ body {
 }
 
 #close {
+    -webkit-app-region: no-drag;
     width: 25px;
     height: 25px;
     padding: 5px;
