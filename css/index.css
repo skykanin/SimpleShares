@@ -1,6 +1,6 @@
 html,
 body {
-    /*background: rgba(0, 0, 0, 0.1);*/
+    background: rgba(0, 0, 0, 0.7);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -10,7 +10,7 @@ body {
 }
 
 body {
-    background: #424242;
+    /*background: #424242;*/
     color: white;
     font-family: 'Open Sans', sans-serif;
 }
@@ -23,14 +23,17 @@ body {
 }
 
 #navbar {
+    background: rgba(0, 0, 0, 0.7);
     -webkit-app-region: drag;
-    background: linear-gradient(#323232, #424242);
+    /*background: linear-gradient(#323232, #424242);*/
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #323232;
 }
 
-#minimize {
+#minimize,
+#maximize,
+#close {
     -webkit-app-region: no-drag;
     width: 25px;
     height: 25px;
@@ -42,40 +45,29 @@ body {
     top: 7.5px;
 }
 
+#minimize {
+    left: calc(100% - 120px);
+}
+
 #maximize {
-    -webkit-app-region: no-drag;
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-    display: inline-block;
-    position: absolute;
-    background-color: transparent;
     left: calc(100% - 80px);
-    top: 7.5px;
 }
 
 #close {
-    -webkit-app-region: no-drag;
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-    display: inline-block;
-    position: absolute;
-    background-color: transparent;
     left: calc(100% - 40px);
-    top: 7.5px;
 }
 
 #minimize>*:hover,
 #maximize>*:hover,
 #close>*:hover {
-    background-color: blueviolet;
+    background: rgba(90, 90, 90, 0.7);
 }
 
 .stocks {
     overflow: hidden;
     text-align: center;
-    background-color: #626262;
+    background: rgba(90, 90, 90, 0.7);
+    /*background-color: #626262;*/
     display: inline-block;
     width: 400px;
     height: 400px;
@@ -87,6 +79,11 @@ body {
 
 .stocks:hover {
     background-color: #616161;
+    background: rgba(97, 97, 97, 0.8);
+}
+
+.graphs {
+    height: 200px;
 }
 
 .info {
@@ -114,7 +111,7 @@ td {
 .head {
     padding: 15px;
     text-align: left;
-    height: 170px;
+    height: 125px;
     width: 400px;
     position: relative;
     top: 0px;
@@ -179,5 +176,5 @@ td {
 }
 
 .ct-label {
-    color: black !important;
+    color: white !important;
 }

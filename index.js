@@ -99,30 +99,43 @@ function drawTable(array, stock) {
 }
 
 function drawGraph(obj, stock) {
+    var even = true;
     var graphDivs = document.getElementsByClassName("graphs");
     var keys = Object.keys(obj["Monthly Time Series"]);
     var data = { labels: [], series: [{ name: 'series1', data: [] }] };
     var options = {
+        width: 400,
+        height: 200,
         showPoint: false,
         lineSmooth: false,
-        series: { 'series1': { showArea: false } },
+        onlyInteger: true,
+        series: { 'series1': { showArea: true } },
         axisY: {
             labelInterpolationFnc: function(value) {
                 return '$' + value;
             },
-            showGrid: true
+            type: chart.AutoScaleAxis,
+            showGrid: false,
         },
         axisX: { showGrid: false }
     };
 
     for (var i = 0; i < 7; i++) {
+
         var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
         var key = keys[i];
 
-        data.labels.unshift(key.slice(5, 10));
-        data.series[0]['data'].unshift(parseInt(info));
-    }
+        if (even) {
+            data.labels.unshift(key.slice(5, 10));
+        } else {
+            data.labels.unshift("");
+        }
 
+        data.series[0]['data'].unshift(parseInt(info));
+
+        even ? even = false : even = true; //switch value of even
+    }
+    console.log(data);
     new chart.Line(graphDivs[stockList.indexOf(stock)], data, options);
 }
 
