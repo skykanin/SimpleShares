@@ -1,15 +1,18 @@
 const request = require('request');
 const chart = require('chartist');
 const remote = require('electron').remote;
+
 var stockList = ["goog", "aapl", "amzn", "ibm", "tsla", "fb"];
 var stockNames = ["Alphabet Inc.", "Apple Inc.", "Amazon Inc.", "IBM Inc.", "Tesla Inc.", "Facebook Inc."];
+var oldDivs = document.getElementsByClassName("stocks");
+var wrapper = document.getElementById("wrapper");
 
-document.getElementById("minimize").addEventListener("click", function(e) {
+document.getElementById("minimize").addEventListener("click", (e) => {
     var window = remote.getCurrentWindow();
     window.minimize();
 });
 
-document.getElementById("maximize").addEventListener("click", function(e) {
+document.getElementById("maximize").addEventListener("click", (e) => {
     var window = remote.getCurrentWindow();
     if (!window.isMaximized()) {
         window.maximize();
@@ -18,9 +21,15 @@ document.getElementById("maximize").addEventListener("click", function(e) {
     }
 });
 
-document.getElementById("close").addEventListener("click", function(e) {
+document.getElementById("close").addEventListener("click", (e) => {
     var window = remote.getCurrentWindow();
     window.close();
+});
+
+document.getElementById("searchinput").addEventListener("input", (e) => {
+    setupSearchGraph();
+    getMonthlyStockData("monthly", e, 1);
+
 });
 
 function getStockNumbers(stock) {
@@ -38,7 +47,7 @@ function getStockNumbers(stock) {
     });
 }
 
-function getMonthyStockData(timeInterval, stock) {
+function getMonthlyStockData(timeInterval, stock, value) {
     if (timeInterval == "weekly") {
         var url = "http://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=" + stock + "&apikey=EL0R";
     } else if (timeInterval == "monthly") {
@@ -53,10 +62,37 @@ function getMonthyStockData(timeInterval, stock) {
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         if (!error && response.statusCode === 200) {
             body = JSON.parse(body);
-            //console.log(body);
-            drawGraph(body, stock);
+            //console.log(body);'
+            if(value == 0){
+                drawGraph(body, stock);
+            } else if(value == 1){
+                drawSearchGraph(body, stock);
+            }
         }
     });
+}
+
+function setupSearchGraph(){
+    console.log(oldDivs.length);
+    var i = 0;
+    while(oldDivs.length > 0){
+        wrapper.removeChild(oldDivs[i]);
+        i++;
+    }
+    console.log(document.getElementsByClassName("searchStock").length == 0);
+    if(document.getElementsByClassName("searchStock").length == 0){
+        var searchStock = document.createElement("div");
+        var head = document.createElement("div");
+        var graph = document.createElement("div");
+        searchStock.className = "searchStock";
+        head.className = "head";
+        graph.className = "graphs";
+    
+        wrapper.appendChild(searchStock);
+        searchStock.appendChild(head);
+        searchStock.appendChild(graph);
+    }
+
 }
 
 function drawTable(array, stock) {
@@ -135,8 +171,44 @@ function drawGraph(obj, stock) {
 
         even ? even = false : even = true; //switch value of even
     }
-    console.log(data);
+    //console.log(data);
     new chart.Line(graphDivs[stockList.indexOf(stock)], data, options);
+}
+
+function drawSearchGraph(obj, stock){
+    console.log(obj);
+    var graphDivs = document.getElementsByClassName("graphs");
+    var keys = Object.keys(obj["Monthly Time Series"]);
+    var data = { labels: [], series: [{ name: 'series1', data: [] }] };
+    var options = {
+        width: 900,
+        height: 600,
+        showPoint: false,
+        lineSmooth: false,
+        onlyInteger: true,
+        series: { 'series1': { showArea: true } },
+        axisY: {
+            labelInterpolationFnc: function(value) {
+                return '$' + value;
+            },
+            type: chart.AutoScaleAxis,
+            showGrid: false,
+        },
+        axisX: { showGrid: false }
+    };
+
+    for (var i = 0; i < 7; i++) {
+
+        var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
+        var key = keys[i];
+
+        data.labels.unshift(key.slice(5, 10));
+        data.labels.unshift("");
+
+        data.series[0]['data'].unshift(parseInt(info));
+    }
+    //console.log(data);
+    new chart.Line(graphDivs, data, options);
 }
 
 function setupClickHandlers() {
@@ -175,7 +247,7 @@ function flip() {
 }
 
 //Adds names to all the stocks
-function namer() {
+function stockNamer() {
     var head = document.getElementsByClassName("head");
     for (var y = 0; y < stockNames.length; y++) {
         if (!head[y].hasChildNodes()) {
@@ -188,9 +260,18 @@ function namer() {
 }
 
 //Runs the functions for displaying the front page
-for (var i = 0; i < stockList.length; i++) {
-    getStockNumbers(stockList[i]);
-    getMonthyStockData("monthly", stockList[i]);
+function loadFrontPage(){
+    for (var i = 0; i < stockList.length; i++) {
+        getStockNumbers(stockList[i]);
+        getMonthlyStockData("monthly", stockList[i], 0);
+    }
+    stockNamer();
+    setupClickHandlers();
 }
-namer();
-setupClickHandlers();
+loadFrontPage();
+
+
+
+
+
+
