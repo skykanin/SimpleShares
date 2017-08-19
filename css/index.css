@@ -31,8 +31,16 @@ body {
     border-bottom: 1px solid #323232;
 }
 
+#searchbar {
+    width: 400px;
+}
+
 #searchbar:hover{
     background: rgba(90, 90, 90, 0.7);
+}
+
+#searchinput {
+    width: 325px;
 }
 
 #searchbar, #searchinput {
@@ -41,12 +49,39 @@ body {
     -webkit-app-region: no-drag;
     font-size:24px;
     color: white;
-    width: 400px;
     height: 50px;
     left: 1em;
     padding: 0;
     margin: 0;
     position: relative;
+}
+
+#searchbutton {
+    width: 75px;
+    height: 50px;
+    position: relative;
+    top: -4px;
+    margin: 0;
+    padding: 0;
+    font-size:18px;
+}
+
+.searchStock {
+    width: 100%;
+    height: 700px;
+}
+
+.searchStock > .head {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+.searchStock > .graphs {
+    width: 100%;
+    height: 600px;
+    left: calc(50% - 600px);
+    display: inline-block;
 }
 
 #minimize,
@@ -98,10 +133,6 @@ body {
 .stocks:hover {
     background-color: #616161;
     background: rgba(97, 97, 97, 0.8);
-}
-
-.graphs {
-    height: 200px;
 }
 
 .info {
@@ -190,7 +221,7 @@ td {
 }
 
 .ct-grid {
-    stroke: black !important;
+    stroke: red !important;
 }
 
 .ct-label {

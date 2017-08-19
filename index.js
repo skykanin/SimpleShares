@@ -26,9 +26,11 @@ document.getElementById("close").addEventListener("click", (e) => {
     window.close();
 });
 
-document.getElementById("searchinput").addEventListener("input", (e) => {
+document.getElementById("searchbutton").addEventListener("click", () => {
+    var search = document.getElementById("searchinput").value;
     setupSearchGraph();
-    getMonthlyStockData("monthly", e, 1);
+    getMonthlyStockData("monthly", search, 1);
+    searchStockNamer(search);
 
 });
 
@@ -73,12 +75,13 @@ function getMonthlyStockData(timeInterval, stock, value) {
 }
 
 function setupSearchGraph(){
-    console.log(oldDivs.length);
-    var i = 0;
+    //console.log("oldDivs.length is " + oldDivs.length);
+
     while(oldDivs.length > 0){
-        wrapper.removeChild(oldDivs[i]);
-        i++;
+        wrapper.removeChild(oldDivs[oldDivs.length - 1]);
+        //console.log("oldDivs.length is " + oldDivs.length);
     }
+
     console.log(document.getElementsByClassName("searchStock").length == 0);
     if(document.getElementsByClassName("searchStock").length == 0){
         var searchStock = document.createElement("div");
@@ -92,7 +95,7 @@ function setupSearchGraph(){
         searchStock.appendChild(head);
         searchStock.appendChild(graph);
     }
-
+    
 }
 
 function drawTable(array, stock) {
@@ -176,23 +179,23 @@ function drawGraph(obj, stock) {
 }
 
 function drawSearchGraph(obj, stock){
-    console.log(obj);
-    var graphDivs = document.getElementsByClassName("graphs");
+    var graphDiv = document.getElementsByClassName("graphs");
     var keys = Object.keys(obj["Monthly Time Series"]);
     var data = { labels: [], series: [{ name: 'series1', data: [] }] };
     var options = {
-        width: 900,
-        height: 600,
+        width: '1000px',
+        height: '600px',
         showPoint: false,
         lineSmooth: false,
         onlyInteger: true,
+        scaleMinSpace: 200,
         series: { 'series1': { showArea: true } },
         axisY: {
             labelInterpolationFnc: function(value) {
                 return '$' + value;
             },
             type: chart.AutoScaleAxis,
-            showGrid: false,
+            showGrid: true,
         },
         axisX: { showGrid: false }
     };
@@ -203,12 +206,10 @@ function drawSearchGraph(obj, stock){
         var key = keys[i];
 
         data.labels.unshift(key.slice(5, 10));
-        data.labels.unshift("");
-
         data.series[0]['data'].unshift(parseInt(info));
     }
     //console.log(data);
-    new chart.Line(graphDivs, data, options);
+    new chart.Line(graphDiv[0], data, options);
 }
 
 function setupClickHandlers() {
@@ -259,6 +260,17 @@ function stockNamer() {
     }
 }
 
+function searchStockNamer(stock){
+    var head = document.getElementsByClassName("head");
+    var node = document.createTextNode(stock);
+    var h1 = document.createElement("h1");
+    h1.id="header";
+    h1.appendChild(node);
+    if(head[0].hasChildNodes()){
+        document.getElementById("header").parentNode.removeChild(document.getElementById("header"));
+    }
+    head[0].appendChild(h1);
+}
 //Runs the functions for displaying the front page
 function loadFrontPage(){
     for (var i = 0; i < stockList.length; i++) {
