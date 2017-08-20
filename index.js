@@ -159,13 +159,13 @@ function drawGraph(obj, stock) {
         axisX: { showGrid: false }
     };
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 8; i++) {
 
         var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
         var key = keys[i];
 
         if (even) {
-            data.labels.unshift(key.slice(5, 10));
+            data.labels.unshift(key.slice(8,10) + "."+ key.slice(5,7));
         } else {
             data.labels.unshift("");
         }
@@ -183,29 +183,29 @@ function drawSearchGraph(obj, stock){
     var keys = Object.keys(obj["Monthly Time Series"]);
     var data = { labels: [], series: [{ name: 'series1', data: [] }] };
     var options = {
-        width: '1000px',
-        height: '600px',
+        width: '1200px',
+        height: '650px',
         showPoint: false,
         lineSmooth: false,
         onlyInteger: true,
-        scaleMinSpace: 200,
-        series: { 'series1': { showArea: true } },
+        series: { 'series1': { showArea: false } },
         axisY: {
             labelInterpolationFnc: function(value) {
                 return '$' + value;
             },
             type: chart.AutoScaleAxis,
-            showGrid: true,
+            showGrid: false,
         },
-        axisX: { showGrid: false }
+        axisX: { showGrid: true }
     };
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 8; i++) {
 
         var info = obj["Monthly Time Series"][Object.keys(obj["Monthly Time Series"])[i]]["4. close"];
         var key = keys[i];
 
-        data.labels.unshift(key.slice(5, 10));
+        data.labels.unshift(key.slice(8,10) + "."+ key.slice(5,7));
+
         data.series[0]['data'].unshift(parseInt(info));
     }
     //console.log(data);
